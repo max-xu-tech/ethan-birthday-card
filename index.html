@@ -3,49 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Happy Birthday Ethan — a card from your teammates">
-<title>Ethan Birthday Card</title>
+<meta name="description" content="全公司最骚的男人今天过生日">
+<title>Ethan 骚气生日卡</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,900;1,9..144,600;1,9..144,900&family=Nunito:wght@400;600;700&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=ZCOOL+KuaiLe&family=Nunito:wght@600;800&display=swap" media="print" onload="this.media='all'">
 <style>
-/* Layout: a folded card sitting on a tabletop; the cover lifts open on tap, confetti falls from above. */
+/* Layout: a leopard-print nightclub wall; a hot-pink card lifts open to a roast letter and a "sao-meter" that overflows its own scale. */
 :root{
-  --table:#1f3a8a;          /* cobalt tabletop */
-  --table-2:#2a4fb3;
-  --paper:#fbf6ea;          /* warm card stock */
-  --paper-edge:#e8dfc9;
-  --ink:#1c1a17;
-  --ink-soft:#5c574d;
-  --accent:#ff7a3d;         /* marigold-coral */
-  --accent-2:#ffd23f;       /* candle yellow */
-  --mint:#5bd1b2;
-  --display:"Fraunces",Georgia,"Songti SC","Noto Serif SC",serif;
+  --wall:#2a0a2e;
+  --leopard-a:#c98a2b;
+  --leopard-b:#4a2a0a;
+  --pink:#ff2e9a;
+  --pink-deep:#c40e6e;
+  --gold:#ffd84a;
+  --cyan:#3df2ff;
+  --paper:#fff4fa;
+  --ink:#2a0a2e;
+  --ink-soft:#7a3a6a;
+  --display:"Bungee","Impact","Arial Black",sans-serif;
+  --cn:"ZCOOL KuaiLe","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --body:"Nunito","PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --table:#0f1b45; --table-2:#172a66;
-    --paper:#f3ecdc; --paper-edge:#d9cfb6;
-    --ink:#1c1a17; --ink-soft:#5c574d;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --table:#0f1b45; --table-2:#172a66;
-  --paper:#f3ecdc; --paper-edge:#d9cfb6;
-  --ink:#1c1a17; --ink-soft:#5c574d;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
-  margin:0;
-  background:var(--table);
+  margin:0;color:var(--ink);font-family:var(--body);
+  background:var(--wall);
   background-image:
-    radial-gradient(ellipse at 50% 0%, var(--table-2), transparent 60%),
-    repeating-linear-gradient(45deg, rgba(255,255,255,.035) 0 2px, transparent 2px 14px);
-  color:var(--ink);
-  font-family:var(--body);
+    radial-gradient(circle at 20% 30%, rgba(201,138,43,.9) 0 10px, rgba(74,42,10,.95) 11px 17px, transparent 18px),
+    radial-gradient(circle at 70% 60%, rgba(201,138,43,.9) 0 12px, rgba(74,42,10,.95) 13px 20px, transparent 21px),
+    radial-gradient(circle at 45% 85%, rgba(201,138,43,.9) 0 8px, rgba(74,42,10,.95) 9px 14px, transparent 15px),
+    radial-gradient(circle at 85% 15%, rgba(201,138,43,.9) 0 9px, rgba(74,42,10,.95) 10px 16px, transparent 17px),
+    radial-gradient(circle at 10% 75%, rgba(201,138,43,.9) 0 11px, rgba(74,42,10,.95) 12px 18px, transparent 19px),
+    linear-gradient(160deg,#5a1040,#2a0a2e 60%,#140418);
+  background-size:160px 140px,190px 170px,150px 130px,170px 150px,180px 160px,100% 100%;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding-block:24px;
   padding-left:max(16px,env(safe-area-inset-left,0px));
@@ -54,195 +46,219 @@ body{
 }
 canvas#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
 
-.scene{
-  width:min(100%,520px);
-  perspective:1600px;
-  position:relative;
+/* disco ball */
+.disco{
+  position:fixed;top:-6px;left:50%;transform:translateX(-50%);z-index:1;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;
 }
-.card{
-  position:relative;
-  aspect-ratio:3/4;
-  max-width:100%;
-  transform-style:preserve-3d;
+.disco .string{width:2px;height:34px;background:rgba(255,255,255,.5)}
+.disco .ball{
+  width:64px;height:64px;border-radius:50%;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.35) 0 2px, transparent 2px 8px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 2px, transparent 2px 8px),
+    radial-gradient(circle at 35% 30%, #fff, #c9d6ff 30%, #6b7bb8 70%, #2a3560);
+  box-shadow:0 0 40px 10px rgba(61,242,255,.35), 0 0 80px 20px rgba(255,46,154,.25);
+  animation:spin 4s linear infinite;
 }
-.face{
-  position:absolute;inset:0;
-  background:var(--paper);
-  border-radius:10px;
-  box-shadow:0 1px 0 var(--paper-edge) inset, 0 30px 60px -20px rgba(0,0,0,.55);
-  padding:clamp(22px,6%,40px);
-  display:flex;flex-direction:column;
-}
-/* inside page (revealed) */
-.inside{
-  justify-content:space-between;
-  background-image:repeating-linear-gradient(0deg, transparent 0 31px, rgba(28,26,23,.08) 31px 32px);
-  background-origin:content-box;
-  background-clip:content-box;
-}
-.inside .eyebrow{
-  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
-  font-weight:700;
-}
-.inside h2{
-  font-family:var(--display);font-weight:900;font-size:clamp(1.6rem,6.5vw,2.3rem);
-  line-height:1.05;margin:.3em 0 .5em;text-wrap:balance;
-  font-variation-settings:"opsz" 144;
-}
-.inside p{margin:0 0 .9em;font-size:clamp(.95rem,3.4vw,1.08rem);line-height:2;max-width:34ch}
-.inside .sign{
-  font-family:var(--display);font-style:italic;font-weight:600;font-size:1.25rem;
-  color:var(--accent);margin-top:auto;
-}
-.inside .en{color:var(--ink-soft);font-size:.9rem;line-height:1.6}
+@keyframes spin{to{filter:hue-rotate(360deg)}}
 
-/* cover: hinged on the left */
-.cover{
-  transform-origin:left center;
-  transition:transform 1.4s cubic-bezier(.65,0,.2,1);
-  backface-visibility:hidden;
-  cursor:pointer;
-  z-index:2;
-  justify-content:flex-end;
-  overflow:hidden;
-  border:0;font:inherit;color:inherit;text-align:left;
+.scene{width:min(100%,520px);perspective:1600px;position:relative;z-index:2}
+.card{position:relative;aspect-ratio:3/4;max-width:100%;transform-style:preserve-3d}
+.face{
+  position:absolute;inset:0;border-radius:14px;
+  padding:clamp(20px,6%,36px);display:flex;flex-direction:column;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.7);
 }
-.cover:focus-visible{outline:3px solid var(--accent-2);outline-offset:4px}
+
+/* inside */
+.inside{
+  background:var(--paper);
+  background-image:radial-gradient(rgba(255,46,154,.12) 1px, transparent 1.5px);
+  background-size:14px 14px;
+  justify-content:flex-start;gap:10px;
+}
+.inside .eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);font-weight:800}
+.inside h2{
+  font-family:var(--cn);font-weight:400;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  line-height:1.15;margin:0;text-wrap:balance;color:var(--pink-deep);
+}
+.inside p{margin:0;font-size:clamp(.9rem,3.3vw,1rem);line-height:1.8}
+.inside p b{color:var(--pink-deep)}
+.meter{
+  margin-top:auto;border:3px solid var(--ink);border-radius:12px;padding:10px 12px;background:#fff;
+  box-shadow:4px 4px 0 var(--ink);
+}
+.meter .label{display:flex;justify-content:space-between;font-weight:800;font-size:.8rem;letter-spacing:.06em}
+.meter .label span:last-child{font-family:var(--display);color:var(--pink);font-variant-numeric:tabular-nums}
+.meter .track{height:16px;border-radius:999px;background:#f2d7e6;margin-top:8px;overflow:hidden;position:relative}
+.meter .fill{
+  height:100%;width:0%;border-radius:999px;
+  background:repeating-linear-gradient(135deg,var(--pink) 0 10px,var(--gold) 10px 20px);
+  transition:width 2.6s cubic-bezier(.2,.9,.2,1.05);
+}
+.card.open .meter .fill{width:100%}
+.meter .warn{margin-top:6px;font-size:.72rem;color:var(--pink-deep);font-weight:800;opacity:0;transition:opacity .4s 2.4s}
+.card.open .meter .warn{opacity:1}
+.inside .sign{font-family:var(--cn);font-size:1.15rem;color:var(--ink-soft);text-align:right}
+
+/* cover */
+.cover{
+  transform-origin:left center;transition:transform 1.4s cubic-bezier(.65,0,.2,1);
+  backface-visibility:hidden;cursor:pointer;z-index:2;
+  background:var(--pink);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.25) 0 60px, transparent 61px),
+    repeating-linear-gradient(-30deg, rgba(0,0,0,.08) 0 18px, transparent 18px 36px);
+  border:4px solid var(--gold);font:inherit;color:inherit;text-align:left;
+  justify-content:flex-end;overflow:hidden;
+}
+.cover:focus-visible{outline:3px solid var(--cyan);outline-offset:4px}
 .card.open .cover{transform:rotateY(-168deg)}
 .cover-back{
-  position:absolute;inset:0;border-radius:10px;background:var(--paper-edge);
+  position:absolute;inset:0;border-radius:14px;background:var(--pink-deep);
   transform:rotateY(180deg);backface-visibility:hidden;z-index:3;
-  transform-origin:left center;
-  transition:transform 1.4s cubic-bezier(.65,0,.2,1);
+  transform-origin:left center;transition:transform 1.4s cubic-bezier(.65,0,.2,1);
 }
 .card.open .cover-back{transform:rotateY(12deg)}
 
+.warning-tape{
+  position:absolute;top:8%;left:-10%;width:120%;transform:rotate(-8deg);
+  background:var(--gold);color:var(--ink);font-family:var(--display);font-size:.8rem;
+  letter-spacing:.12em;padding:6px 0;white-space:nowrap;overflow:hidden;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);
+}
+.warning-tape span{display:inline-block;animation:marquee 9s linear infinite;padding-left:100%}
+@keyframes marquee{to{transform:translateX(-100%)}}
+
 .cover .big{
-  font-family:var(--display);
-  font-weight:900;
-  font-variation-settings:"opsz" 144;
-  line-height:.86;
-  letter-spacing:-.03em;
-  font-size:clamp(3.4rem,19vw,6.6rem);
-  color:var(--ink);
+  font-family:var(--display);line-height:.92;margin:0;
+  font-size:clamp(2.6rem,14vw,5rem);color:#fff;
+  text-shadow:4px 4px 0 var(--ink), 8px 8px 0 var(--gold);
   text-wrap:balance;
-  margin:0;
 }
-.cover .big em{font-style:italic;color:var(--accent);font-weight:600}
-.cover .sub{
-  margin:.8em 0 0;font-weight:700;color:var(--ink-soft);
-  font-size:clamp(.85rem,3.2vw,1rem);letter-spacing:.08em;
-}
-.cover .date{
-  position:absolute;top:clamp(18px,5%,30px);right:clamp(18px,5%,30px);
-  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
-  font-weight:700;writing-mode:vertical-rl;
+.cover .big em{font-style:normal;color:var(--gold);text-shadow:4px 4px 0 var(--ink)}
+.cover .cn{
+  font-family:var(--cn);color:#fff;font-size:clamp(1.1rem,4.5vw,1.5rem);margin:.5em 0 0;
+  text-shadow:2px 2px 0 var(--ink);
 }
 .hint{
-  position:absolute;left:clamp(22px,6%,40px);bottom:clamp(14px,4%,22px);
-  font-size:.75rem;color:var(--ink-soft);display:flex;align-items:center;gap:.5em;
+  position:absolute;left:clamp(20px,6%,36px);bottom:clamp(12px,4%,20px);
+  font-size:.75rem;color:#fff;font-weight:800;letter-spacing:.04em;
+  display:flex;align-items:center;gap:.5em;
 }
-.hint::before{content:"";width:22px;height:1px;background:var(--accent)}
+.hint::before{content:"";width:22px;height:3px;background:var(--gold)}
 
-/* cake on cover */
-.cake{
-  position:absolute;top:clamp(26px,9%,56px);left:clamp(22px,6%,40px);
-  width:clamp(120px,36%,190px);
-}
-.cake svg{width:100%;height:auto;display:block;overflow:visible}
-.flame{transform-origin:50% 100%;animation:flicker 1.1s ease-in-out infinite alternate}
-.flame:nth-of-type(2){animation-delay:-.35s}
-.flame:nth-of-type(3){animation-delay:-.7s}
-@keyframes flicker{from{transform:scaleY(1) rotate(-3deg)}to{transform:scaleY(1.18) rotate(4deg)}}
+/* the man himself: a face with sunglasses that drop in */
+.dude{position:absolute;top:22%;right:clamp(16px,6%,36px);width:clamp(110px,34%,170px)}
+.dude svg{width:100%;height:auto;display:block;overflow:visible}
+.shades{animation:drop 1.2s cubic-bezier(.2,1.4,.4,1) .4s both}
+@keyframes drop{from{transform:translateY(-70px);opacity:0}to{transform:none;opacity:1}}
+.sparkle{animation:twinkle 1.4s ease-in-out infinite alternate;transform-origin:center;transform-box:fill-box}
+.sparkle:nth-of-type(2){animation-delay:-.5s}
+.sparkle:nth-of-type(3){animation-delay:-.9s}
+@keyframes twinkle{from{transform:scale(.6);opacity:.5}to{transform:scale(1.15);opacity:1}}
 
-.tagline{
-  margin:28px 0 0;color:rgba(255,255,255,.72);font-size:.85rem;letter-spacing:.04em;text-align:center;
-}
+.tagline{margin:26px 0 0;color:rgba(255,255,255,.75);font-size:.85rem;letter-spacing:.04em;text-align:center}
+
 @media (prefers-reduced-motion: reduce){
   .cover,.cover-back{transition-duration:.2s}
-  .flame{animation:none}
+  .disco .ball,.warning-tape span,.sparkle,.shades{animation:none}
+  .meter .fill{transition-duration:.3s}
 }
 </style>
-
 </head>
 <body>
 <canvas id="confetti" aria-hidden="true"></canvas>
+<div class="disco" aria-hidden="true"><div class="string"></div><div class="ball"></div></div>
 
 <div class="scene">
   <div class="card" id="card">
     <section class="face inside" aria-label="卡片内页">
-      <div>
-        <div class="eyebrow">To Ethan · 2026.10.26</div>
-        <h2>Ethan，生日快乐！</h2>
-        <p>谢谢你每天带来的好点子和好心情。有你在的项目，总是更顺、更有意思。</p>
-        <p>愿新的一岁少一点 bug，多一点假期；少一点加班，多一点蛋糕。</p>
-        <p class="en">Wishing you a year of green builds, short meetings, and long weekends. Happy birthday!</p>
+      <div class="eyebrow">机密 · 仅限 Ethan 本人阅读 · 2026.10.26</div>
+      <h2>Ethan，全公司最骚的男人，今天又骚了一岁。</h2>
+      <p>据不完全统计，你出现的会议室平均<b>气温上升 2 度</b>，发言音量上升 30%，群里表情包增加 200%。</p>
+      <p>愿你新的一岁：发型永不塌，滤镜永不掉，朋友圈点赞永远第一；bug 像你的衬衫纽扣一样少，假期像你的话一样多。</p>
+      <p>生日快乐，骚哥。继续骚，别停。</p>
+      <div class="meter" aria-label="骚气值">
+        <div class="label"><span>骚气值 SAO METER</span><span id="pct">0%</span></div>
+        <div class="track"><div class="fill"></div></div>
+        <div class="warn">⚠ 已超出量程，仪表损坏，请自费维修</div>
       </div>
-      <div class="sign">— 你的同事们</div>
+      <div class="sign">— 被你骚到的同事们</div>
     </section>
     <div class="cover-back" aria-hidden="true"></div>
     <button class="face cover" id="cover" type="button" aria-expanded="false" aria-controls="card">
-      <div class="date">Oct 26</div>
-      <div class="cake" aria-hidden="true">
-        <svg viewBox="0 0 200 180">
-          <!-- candles -->
-          <g>
-            <rect x="60" y="62" width="10" height="38" rx="3" fill="#ff7a3d"/>
-            <rect x="95" y="52" width="10" height="48" rx="3" fill="#5bd1b2"/>
-            <rect x="130" y="62" width="10" height="38" rx="3" fill="#ff7a3d"/>
-            <path class="flame" d="M65 60c-7-8-7-16 0-24 7 8 7 16 0 24z" fill="#ffd23f"/>
-            <path class="flame" d="M100 50c-7-8-7-16 0-24 7 8 7 16 0 24z" fill="#ffd23f"/>
-            <path class="flame" d="M135 60c-7-8-7-16 0-24 7 8 7 16 0 24z" fill="#ffd23f"/>
+      <div class="warning-tape" aria-hidden="true"><span>WARNING · 前方高骚 · 未成年人请在家长陪同下观看 · WARNING · 前方高骚 · 未成年人请在家长陪同下观看 ·</span></div>
+      <div class="dude" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <!-- hair -->
+          <path d="M40 90c-6-40 20-70 60-70s66 30 60 70c-10-22-30-30-60-30s-50 8-60 30z" fill="#2a0a2e"/>
+          <path d="M70 30c10-18 36-22 56-10-18 0-30 6-56 10z" fill="#2a0a2e"/>
+          <!-- face -->
+          <ellipse cx="100" cy="110" rx="52" ry="58" fill="#ffd9b8" stroke="#2a0a2e" stroke-width="4"/>
+          <!-- eyebrow raised -->
+          <path d="M62 88q14-10 28-2" fill="none" stroke="#2a0a2e" stroke-width="4" stroke-linecap="round"/>
+          <path d="M112 80q14-10 28 2" fill="none" stroke="#2a0a2e" stroke-width="4" stroke-linecap="round"/>
+          <!-- smirk -->
+          <path d="M78 140q22 18 46 2" fill="none" stroke="#2a0a2e" stroke-width="4" stroke-linecap="round"/>
+          <!-- gold chain -->
+          <path d="M60 168q40 30 80 0" fill="none" stroke="#ffd84a" stroke-width="5" stroke-dasharray="6 4"/>
+          <!-- sunglasses -->
+          <g class="shades">
+            <rect x="52" y="92" width="42" height="26" rx="8" fill="#2a0a2e"/>
+            <rect x="106" y="92" width="42" height="26" rx="8" fill="#2a0a2e"/>
+            <path d="M94 102h12" stroke="#2a0a2e" stroke-width="5"/>
+            <path d="M58 98l10 0" stroke="#fff" stroke-width="3" opacity=".7"/>
+            <path d="M112 98l10 0" stroke="#fff" stroke-width="3" opacity=".7"/>
           </g>
-          <!-- top tier -->
-          <rect x="40" y="98" width="120" height="34" rx="6" fill="#fff" stroke="#1c1a17" stroke-width="3"/>
-          <path d="M40 112c10 12 20-12 30 0s20 12 30 0 20-12 30 0 20 12 30 0" fill="none" stroke="#ff7a3d" stroke-width="5" stroke-linecap="round"/>
-          <!-- bottom tier -->
-          <rect x="20" y="130" width="160" height="38" rx="6" fill="#fff" stroke="#1c1a17" stroke-width="3"/>
-          <path d="M20 146c12 12 24-12 36 0s24 12 36 0 24-12 36 0 24 12 36 0 10-6 16 0" fill="none" stroke="#5bd1b2" stroke-width="5" stroke-linecap="round"/>
-          <!-- plate -->
-          <ellipse cx="100" cy="170" rx="92" ry="6" fill="#1c1a17"/>
+          <!-- sparkles -->
+          <path class="sparkle" d="M30 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#ffd84a"/>
+          <path class="sparkle" d="M172 50l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#3df2ff"/>
+          <path class="sparkle" d="M160 150l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#ffd84a"/>
         </svg>
       </div>
-      <h1 class="big">Happy<br>Birthday<br><em>Ethan</em></h1>
-      <p class="sub">生 日 快 乐</p>
-      <span class="hint">点一下打开卡片</span>
+      <h1 class="big">HAPPY<br>B-DAY<br><em>ETHAN</em></h1>
+      <p class="cn">骚哥，生日快乐！</p>
+      <span class="hint">点一下，开启骚模式</span>
     </button>
   </div>
 </div>
-<p class="tagline">卡片可以来回翻开 · 打开时有彩带</p>
+<p class="tagline">可反复开合 · 开启时有彩带 · 骚气值会爆表</p>
 
 <script>
 (function(){
   var card=document.getElementById('card');
   var cover=document.getElementById('cover');
+  var pct=document.getElementById('pct');
   var canvas=document.getElementById('confetti');
   var ctx=canvas.getContext('2d');
   var pieces=[], raf=null, dpr=Math.min(window.devicePixelRatio||1,2);
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var colors=['#ff7a3d','#ffd23f','#5bd1b2','#fbf6ea','#ff4f81'];
+  var colors=['#ff2e9a','#ffd84a','#3df2ff','#ffffff','#c98a2b'];
 
-  function resize(){
-    canvas.width=innerWidth*dpr; canvas.height=innerHeight*dpr;
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-  }
+  function resize(){canvas.width=innerWidth*dpr;canvas.height=innerHeight*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
   resize(); addEventListener('resize',resize);
 
   function burst(){
     if(reduce) return;
-    var n=160;
-    for(var i=0;i<n;i++){
+    for(var i=0;i<220;i++){
+      var heart=Math.random()<.25;
       pieces.push({
-        x:innerWidth/2+(Math.random()-.5)*innerWidth*.4,
-        y:-20-Math.random()*innerHeight*.3,
-        vx:(Math.random()-.5)*3,
-        vy:2+Math.random()*3,
-        w:6+Math.random()*6, h:8+Math.random()*10,
+        x:innerWidth/2+(Math.random()-.5)*innerWidth*.5, y:-20-Math.random()*innerHeight*.3,
+        vx:(Math.random()-.5)*3, vy:2+Math.random()*3,
+        w:6+Math.random()*7, h:8+Math.random()*10,
         rot:Math.random()*Math.PI, vr:(Math.random()-.5)*.25,
-        c:colors[i%colors.length], life:1
+        c:colors[i%colors.length], heart:heart
       });
     }
     if(!raf) raf=requestAnimationFrame(tick);
+  }
+  function drawHeart(s){
+    ctx.beginPath();
+    ctx.moveTo(0,s*.35);
+    ctx.bezierCurveTo(-s,-s*.4,-s*.5,-s,0,-s*.35);
+    ctx.bezierCurveTo(s*.5,-s,s,-s*.4,0,s*.35);
+    ctx.fill();
   }
   function tick(){
     ctx.clearRect(0,0,innerWidth,innerHeight);
@@ -250,17 +266,31 @@ canvas#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:non
       var p=pieces[i];
       p.x+=p.vx+Math.sin(p.y*.02)*.6; p.y+=p.vy; p.rot+=p.vr; p.vy+=.03;
       if(p.y>innerHeight+30){pieces.splice(i,1);continue;}
-      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-      ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot); ctx.fillStyle=p.c;
+      if(p.heart) drawHeart(p.w); else ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx.restore();
     }
     if(pieces.length){raf=requestAnimationFrame(tick);}else{raf=null;}
   }
 
-  var opened=false;
+  var counter=null;
+  function runMeter(open){
+    clearInterval(counter);
+    if(!open){pct.textContent='0%';return;}
+    var start=performance.now(), dur=reduce?300:2600;
+    counter=setInterval(function(){
+      var t=Math.min(1,(performance.now()-start)/dur);
+      var v=Math.round(t*t*999);
+      pct.textContent=(t>=1?'999+':v)+'%';
+      if(t>=1) clearInterval(counter);
+    },40);
+  }
+
   cover.addEventListener('click',function(){
     var open=card.classList.toggle('open');
     cover.setAttribute('aria-expanded',String(open));
-    if(open){ setTimeout(burst, 500); }
+    if(open) setTimeout(burst,500);
+    runMeter(open);
   });
 })();
 </script>
